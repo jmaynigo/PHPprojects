@@ -6,40 +6,73 @@
         <title>Database</title>
     </head>
     <body>
-        <?php
-            $dbhost = 'localhost';
-            $dbuser = 'root';
-            $dbpass = '';
+    <?php
+         $dbhost = 'localhost';
+         $dbuser = 'root';
+         $dbpass = '';
+         $dbname = 'SEVENTEEN';
+         $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+         
+         if($mysqli->connect_errno ) {
+            printf("Connect failed: %s<br />", $mysqli->connect_error);
+            exit();
+         }
+         printf('Connected successfully.<br />');
+         $sql = "CREATE TABLE seventeen_tbl( ".
+            "seventeen_id INT NOT NULL AUTO_INCREMENT, ".
+            "seventeen_last_name VARCHAR(100) NOT NULL, ".
+            "seventeen_first_name VARCHAR(40) NOT NULL, ".
+            "birthdate_date DATE, ".
+            "PRIMARY KEY ( seventeen_id )); ";
+         if ($mysqli->query($sql)) {
+            printf("Table seventeen_tbl created successfully.<br />");
+         }
+         if ($mysqli->errno) {
+            printf("Could not create table: %s<br />", $mysqli->error);
+         }
+         $mysqli->close();
 
-            $mysql_connect = new mysqli($dbhost, $dbuser, $dbpass);
-
-            if($mysql_connect->connect_errno){
-                printf("Connect failed: %,br />", $mysql_connect->connect_error);
-                exit();
-            }
-            printf('Connected successfully.<br />');
-
-            if($mysql_connect->query("CREATE DATABASE SEVENTEEN")){
+//Create database
+/*            if($mysqli->query("CREATE DATABASE SEVENTEEN")){
                 printf("Database SEVENTEEN created successfully.<br />");
             }
 
-            if ($mysql_connect->errno){
-                printf("Could not create database: %s<br />", $mysql_connect->error);
+            if ($mysqli->errno){
+                printf("Could not create database: %s<br />", $mysqli->error);
             }
+*/
             
-            $first_table = "CREATE TABLE SVTProfile( ".
-                            "profile_id INT NOT NULL AUTO_INCREMENT, ".
-                            "first_name VARCHAR(100) NOT NULL, ".
-                            "last_name VARCHAR(100) NOT NULL, ".
-                            "PRIMARY KEY ( profile_id )); ";
-                        if ($mysql_connect->query($first_table)){
-                            printf("Table SVTProfile created successfully.<br />");
-                        }
-                        if ($mysql_connect->errno){
-                            printf("Could not create table: %s<br />", $mysql_connect->error);
-                        }
+//Select database
+/*            $conn = mysqli_connect($dbhost, $dbuser, $dbpass);
 
-            $mysql_connect->close();
+            if(!$conn){
+                die('Could not connect: ' . $mysqli_error($conn));
+            }
+            echo 'Connected successfully<br />';
+            $retval = mysqli_select_db($conn, 'SEVENTEEN');
+
+            if(!$retval){
+                die('Could not select database: ' . mysqli_error($conn));
+            }
+            echo "Database SEVENTEEN selected succesfully\n";
+*/
+
+//Create table
+/*            $sql = "CREATE TABLE seventeen_tbl( ".
+                            "profile_id INT NOT NULL AUTO_INCREMENT, ".
+                            "last_name VARCHAR(100) NOT NULL, ".
+                            "first_name VARCHAR(100) NOT NULL, ".
+                            "birth_date DATE".
+                            "PRIMARY KEY ( profile_id ));";
+            if ($mysqli->query($sql)){
+                printf("Table SVTProfile created successfully.<br />");
+            }
+            if ($mysqli->errno){
+                printf("Could not create table: %s<br />", $mysqli->error);
+            }
+
+            $mysqli->close();
+*/
         ?>
     </body>
 </html>
